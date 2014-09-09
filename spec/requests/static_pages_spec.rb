@@ -9,16 +9,26 @@ RSpec.describe "StaticPages", :type => :request do
   end
 
   describe "Home page" do
-    it "should have the content 'Social Good Meter'" do
+    it "should have the content 'The platform to measure social good'" do
       visit '/static_pages/home'
-      expect(page).to have_content('Social Good Meter')
+      expect(page).to have_content('The platform to measure social good')
+    end
+
+    it "should have title 'Home'" do
+      visit '/static_pages/home'
+      expect(page).to have_title("CivilizationR | Home")
     end
   end
 
   describe "About page" do
-    it "should have the content 'Help'" do
+    it "should have the content 'About'" do
       visit '/static_pages/about'
       expect(page).to have_content('About')
+    end
+
+    it "should have title 'About'" do
+      visit '/static_pages/about'
+      expect(page).to have_title("CivilizationR | About Us")
     end
   end
 end

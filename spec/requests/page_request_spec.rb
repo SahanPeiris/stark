@@ -26,4 +26,32 @@ RSpec.describe "PageRequest", :type => :request do
       expect(page).to have_title("BitQuora | About Us")
     end
   end
+
+  describe "Signup page" do
+    it "should stay on the same signup page and have the same user count if invalid parameters are given" do
+      visit signup_path
+      count = User.count
+      post users_path, user: { name:  "",
+        email: "user@invalid",
+        password:              "foo",
+        password_confirmation: "bar" }
+      expect(count).to eq(User.count)
+      assert_template 'users/new'
+      end
+
+
+    it "should go to the user page and have an increased user count if valid parameters are given" do
+      get signup_path
+      count = User.count + 1
+      post_via_redirect users_path, user: { name:  "Sahan Peiris",
+        email: "sapeiris@bugatti.com",
+        ripple_account: "sapeirs",
+        password: "1234foobar",
+        password_confirmation: "1234foobar" }
+      expect(count).to eq(User.count)
+      assert_template 'users/show'
+      end
+
+  end
+
 end
